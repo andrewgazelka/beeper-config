@@ -3,6 +3,8 @@
    Change --im-sidebar-width below to resize the chat list. */
 :root {
   --im-sidebar-width: 200px;
+  --im-floating-fill: color-mix(in srgb, var(--im-bubble) 75%, transparent);
+  --im-floating-border: color-mix(in srgb, var(--im-text) 10%, transparent);
   --im-message-size: 17px;
   --im-message-weight: 500;
   --im-placeholder: #8e8e93;
@@ -693,7 +695,7 @@ body.window-unfocused .left {
 }
 
 .Toasts-module__container:not(.Toasts-module__error) {
-  background: color-mix(in srgb, var(--im-bubble) 85%, transparent) !important;
+  background: var(--im-floating-fill) !important;
   backdrop-filter: var(--im-control-filter);
   -webkit-backdrop-filter: var(--im-control-filter);
   border: 1px solid var(--im-control-border);
@@ -754,4 +756,27 @@ body:not(.window-unfocused) .left .ThreadListItem-module__isSelected {
 /* Disappearing-message settings remain in Chat Info. */
 .right-thread .thread-header > .thread-header-left + * {
   display: none !important;
+}
+
+.command-bar {
+  --color-secondary-container: color-mix(in srgb, var(--im-text) 9%, transparent);
+  background: var(--im-floating-fill) !important;
+  backdrop-filter: var(--im-control-filter);
+  -webkit-backdrop-filter: var(--im-control-filter);
+  border: 1px solid var(--im-floating-border);
+  box-shadow: 0 4px 14px #00000024 !important;
+}
+
+.command-bar header,
+.command-bar footer,
+.command-bar .inputs input {
+  background: transparent;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .command-bar {
+    background: var(--im-bubble) !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
