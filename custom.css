@@ -23,7 +23,7 @@
   --im-muted: #68686e;
   --im-line: #d9d9de;
   --im-hover: #e7e7ec;
-  --im-selected: #dbe9ff;
+  --im-selected: #dcdce0;
   --im-header: #ffffff40;
   --im-window: #f7f7fa;
   --im-sidebar-glass: #f3f3f58c;
@@ -40,7 +40,7 @@
     --im-muted: #a1a1aa;
     --im-line: #39393f;
     --im-hover: #2c2c31;
-    --im-selected: #253c5a;
+    --im-selected: #3a3a3c;
     --im-header: #16161830;
     --im-window: #1e1e1e;
     --im-sidebar-glass: #2525258c;
@@ -704,4 +704,43 @@ body.window-unfocused .left {
 
 .Toasts-module__container:not(.Toasts-module__error) .Toasts-module__close {
   color: var(--im-muted);
+}
+
+/* Keep row geometry and text hierarchy consistent in compact mode too. */
+.left {
+  --inbox-avatar-size: 40px;
+}
+
+.left .ThreadListItem-module__avatar {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 8px;
+}
+
+.left .ThreadListItem-module__title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 17px !important;
+}
+
+.left .ThreadListItem-module__preview {
+  font-size: 12px !important;
+  line-height: 16px !important;
+  letter-spacing: 0 !important;
+}
+
+.left .ThreadListItem-module__timestamp {
+  font-size: 11px !important;
+  font-weight: 400 !important;
+}
+
+.left .ThreadListItem-module__wrapper,
+.left .ThreadListItem-module__wrapper.ThreadListItem-module__isSelected::before {
+  border-radius: 8px !important;
+}
+
+body:not(.window-unfocused) .left .ThreadListItem-module__isSelected {
+  --im-text: #ffffff;
+  --im-muted: #ffffffc7;
+  --color-background-selected: var(--color-primary);
 }
