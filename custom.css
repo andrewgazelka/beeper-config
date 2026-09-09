@@ -780,3 +780,9 @@ body:not(.window-unfocused) .left .ThreadListItem-module__isSelected {
     -webkit-backdrop-filter: none;
   }
 }
+
+/* Hide the timer trigger, not all tooltips; failed-send details stay available. */
+.message-readable-metadata > .MessageReadableMetadata-module__content > .BrandTooltip-module__container:has(> svg[width="10"][height="10"]),
+.AttachmentFileRow-module__trailing > .BrandTooltip-module__container:has(> svg[width="10"][height="10"]) {
+  display: none !important;
+}
