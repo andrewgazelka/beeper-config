@@ -35,18 +35,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --im-background: #161618;
-    --im-sidebar: #202023;
+    --im-background: #1e1e1e;
+    --im-sidebar: #252525;
     --im-bubble: #3a3a3c;
     --im-text: #f5f5f7;
     --im-muted: #a1a1aa;
     --im-line: #39393f;
     --im-hover: #2c2c31;
     --im-selected: #3a3a3c;
-    --im-header: #16161830;
-    --im-window: #1e1e1e;
-    --im-sidebar-glass: #2525258c;
-    --im-sidebar-inactive: #252525d9;
+    --im-header: color-mix(in srgb, var(--im-background) 19%, transparent);
+    --im-window: var(--im-background);
+    --im-sidebar-glass: color-mix(in srgb, var(--im-sidebar) 55%, transparent);
+    --im-sidebar-inactive: color-mix(in srgb, var(--im-sidebar) 85%, transparent);
 
   }
 }
