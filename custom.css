@@ -1,0 +1,707 @@
+/* Local Beeper theme. Authored by an AI agent via Codex.
+   Reload with "Reload custom CSS" in Beeper's command bar.
+   Change --im-sidebar-width below to resize the chat list. */
+:root {
+  --im-sidebar-width: 200px;
+  --im-message-size: 17px;
+  --im-message-weight: 500;
+  --im-placeholder: #8e8e93;
+  --im-control-fill: color-mix(in srgb, var(--im-text) 6%, transparent);
+  --im-control-filter: blur(40px) saturate(150%);
+  --im-control-border: #00000018;
+  --im-control-focus: #00000028;
+  --im-control-shadow: inset 0 1px 0 #ffffff05;
+  --min-sidebar-width: 200px !important;
+  --max-sidebar-width: 260px !important;
+  --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif !important;
+  --border-radius-conversation-bubble: 18px !important;
+  --border-radius-composer-input: 20px !important;
+  --im-background: #ffffff;
+  --im-sidebar: #f3f3f5;
+  --im-bubble: #e9e9eb;
+  --im-text: #1c1c1e;
+  --im-muted: #68686e;
+  --im-line: #d9d9de;
+  --im-hover: #e7e7ec;
+  --im-selected: #dbe9ff;
+  --im-header: #ffffff40;
+  --im-window: #f7f7fa;
+  --im-sidebar-glass: #f3f3f58c;
+  --im-sidebar-inactive: #f3f3f5d9;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --im-background: #161618;
+    --im-sidebar: #202023;
+    --im-bubble: #3a3a3c;
+    --im-text: #f5f5f7;
+    --im-muted: #a1a1aa;
+    --im-line: #39393f;
+    --im-hover: #2c2c31;
+    --im-selected: #253c5a;
+    --im-header: #16161830;
+    --im-window: #1e1e1e;
+    --im-sidebar-glass: #2525258c;
+    --im-sidebar-inactive: #252525d9;
+
+  }
+}
+
+/* Use Beeper's tokens so replies, attachments and error states stay native. */
+:root,
+body {
+  --color-primary: #3a95fa !important;
+  --color-on-primary: #ffffff !important;
+  --color-bg: var(--im-background) !important;
+  --color-surface: var(--im-background) !important;
+  --color-background-app: var(--im-background) !important;
+  --color-primary-container: var(--im-sidebar) !important;
+  --color-secondary-container: var(--im-bubble) !important;
+  --color-tertiary-container: var(--im-sidebar) !important;
+  --color-on-surface: var(--im-text) !important;
+  --color-on-surface-variant: var(--im-muted) !important;
+  --color-background-sidebar-opaque: var(--im-sidebar) !important;
+  --color-background-message-bubble-received: var(--im-bubble) !important;
+  --color-background-header-right: var(--im-header) !important;
+  --color-background-selected: var(--im-selected) !important;
+  --left-pane-bg: transparent !important;
+  --right-pane-bg: transparent !important;
+}
+
+body {
+  font-family: var(--font-family) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Beeper creates a macOS sidebar-vibrancy window. Tint it once instead
+   of stacking opaque fills across the app, conversation and composer. */
+html,
+body,
+#root {
+  background: transparent !important;
+}
+
+.home {
+  background: transparent !important;
+}
+
+/* Keep desktop translucency in the sidebar, not behind the conversation. */
+.right-wrapper {
+  background: var(--im-window) !important;
+}
+
+.left {
+  background: var(--im-sidebar-glass) !important;
+  box-shadow: inset -1px 0 color-mix(in srgb, var(--im-line) 45%, transparent);
+}
+
+/* Override the inline list width too; a cap on its parent did not resize it.
+   A fixed width gives up native dragging. Edit --im-sidebar-width instead. */
+.left:has(.threads-list-container:not(.threads-list-container--hidden)) {
+  width: var(--im-sidebar-width) !important;
+  min-width: var(--im-sidebar-width) !important;
+  max-width: var(--im-sidebar-width) !important;
+  flex: 0 0 var(--im-sidebar-width) !important;
+}
+
+.left .threads-list-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+.left .threads {
+  width: 0 !important;
+  min-width: 0 !important;
+  flex: 1 1 0 !important;
+}
+
+.right-wrapper {
+  --frame-gap: 0px;
+  --frame-gap-double: 0px;
+}
+
+.right-wrapper .right.right-thread,
+.right-thread .panes,
+.right-thread .conversation,
+.right-thread .compose-message-container {
+  background: transparent !important;
+  filter: none !important;
+}
+
+/* Preserve row heights because Beeper positions the chat list virtually. */
+.sidebar-thread {
+  --divider-height: 0px;
+  --divider-opacity: 0;
+}
+
+.ThreadListItem-module__wrapper,
+.ThreadListItem-module__wrapper.ThreadListItem-module__isSelected::before {
+  border-radius: 11px !important;
+}
+
+.ThreadListItem-module__wrapper:hover:not(.ThreadListItem-module__isSelected) {
+  background: var(--im-hover);
+}
+
+.ThreadListItem-module__title {
+  font-size: 13px !important;
+  letter-spacing: -0.1px !important;
+  color: var(--im-text);
+}
+
+.ThreadListItem-module__preview {
+  font-size: 12px !important;
+  color: var(--im-muted) !important;
+  opacity: 1 !important;
+}
+
+.ThreadListItem-module__timestamp {
+  font-size: 10px !important;
+  color: var(--im-muted) !important;
+  opacity: 1 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.ThreadListItem-module__unreadCount {
+  font-variant-numeric: tabular-nums;
+}
+
+.right-pane-header {
+  background: var(--im-header) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.ComposeMessage-module__wrapper {
+  background: transparent !important;
+  padding: 10px 12px 12px !important;
+}
+
+/* One glass treatment for the input and its adjacent action control. */
+.ComposeMessage-module__input:not(.ComposeMessage-module__sendLater),
+.compose-message-container .ComposerHiddenActions-module__toggle {
+  background: var(--im-control-fill) !important;
+  backdrop-filter: var(--im-control-filter);
+  -webkit-backdrop-filter: var(--im-control-filter);
+  border: 1px solid var(--im-control-border) !important;
+  box-shadow: var(--im-control-shadow) !important;
+}
+
+.ComposeMessage-module__input:not(.ComposeMessage-module__sendLater) {
+  border-radius: 20px !important;
+}
+
+.ComposeMessage-module__input:focus-within,
+.compose-message-container .ComposerHiddenActions-module__toggle:focus-visible {
+  border-color: var(--im-control-focus) !important;
+}
+
+.ComposeMessage-module__textArea .ProseMirror {
+  color: var(--im-text);
+  caret-color: var(--color-primary);
+}
+
+body.reduce-transparency .home,
+body.no-transparency .home {
+  background: var(--im-background) !important;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .home {
+    background: var(--im-background) !important;
+  }
+  .right-pane-header {
+    background: var(--im-background) !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Hide only the composer's send control, not attachment or recording actions. */
+.ComposeMessage-module__wrapper .BrandSendButton-module__container,
+.ComposeMessage-module__wrapper button.ComposeMessage-module__sendButton {
+  display: none !important;
+}
+
+.compose-message-container,
+.compose-text,
+.message-input-scroll,
+.ComposeMessage-module__messageInputContainer,
+.ComposeMessage-module__textArea,
+.ComposeMessage-module__textArea .ProseMirror {
+  background: transparent !important;
+}
+
+/* Keep the existing click target and unread count, without the circular fill. */
+.ScrollToBottom-module__scrollToBottom {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: var(--im-muted) !important;
+}
+
+.ScrollToBottom-module__scrollToBottom.ScrollToBottom-module__circle {
+  display: grid;
+  place-items: center;
+}
+
+.ScrollToBottom-module__scrollToBottom.ScrollToBottom-module__circle svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.ScrollToBottom-module__scrollToBottom:hover,
+.ScrollToBottom-module__scrollToBottom:focus-visible {
+  color: var(--im-text) !important;
+}
+
+/* Share the stacked header height with the message viewport's top inset. */
+.right-thread {
+  --header-height: 80px;
+}
+
+.right-thread .thread-header-left {
+  height: 100%;
+  width: min(60%, 360px);
+  justify-content: center;
+}
+
+.right-thread .thread-header-left .thread-header-card {
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 0;
+  min-width: 0;
+  max-height: 100%;
+}
+
+.right-thread .thread-header-left .thread-header-avatar {
+  margin-bottom: -3px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  box-shadow: 0 1px 3px #00000018;
+}
+
+.right-thread .thread-header-avatar .participant-avatar {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.right-thread .thread-header-left .thread-header-info {
+  min-width: 0;
+  max-width: 100%;
+  padding: 5px 10px;
+  align-items: center;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--im-text) 9%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 1px 3px #00000020;
+  outline: 1px solid color-mix(in srgb, var(--im-text) 7%, transparent);
+}
+
+.right-thread .thread-header-left .thread-header-name {
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Clear the panels containing the composer, without changing bubble fills. */
+.right-thread :has(.compose-message-container),
+.right-thread .compose-message-container,
+.right-thread .ComposeMessage-module__wrapper,
+.right-thread .ComposeMessage-module__row {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* The stock flex layout ends the message viewport above the composer.
+   Overlap their grid areas so scrolling messages can pass behind the input. */
+.right-thread .conversation:has(> .compose-message-container) {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.right-thread .conversation:has(> .compose-message-container) > .panes {
+  grid-area: 1 / 1 / 3 / 2;
+  min-height: 0;
+}
+
+.right-thread .conversation > .compose-message-container {
+  grid-area: 2 / 1 / 3 / 2;
+  z-index: 3;
+  align-self: end;
+}
+
+/* The virtualizer measures this terminal row. Its viewport has no
+   messages-list class. Clear the 58px single-line composer plus footer text. */
+.right-thread .conversation:has(> .compose-message-container) .bottom-of-thread {
+  min-height: 84px;
+}
+
+/* Sidebar access stays on the user's keybind. Native window buttons remain. */
+.HoneycombSurface-module__sidebarToggle,
+button[aria-label="Open Chat List"] {
+  display: none !important;
+}
+
+/* A clipped tail stays transparent around its curve on the glass background. */
+.message-container.is-sender:not(.type-emoji):not(.type-action):not(.is-deleted):not(.is-errored):not(.is-scheduled):not(.is-edit-history)
+  .message-contents.MessageContent-module__isSender::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  bottom: -2px;
+  width: 12px;
+  height: 16px;
+  background: inherit;
+  clip-path: path("M 0 0 C 9 0 5 10 12 16 C 5 15 0 11 0 6 Z");
+  pointer-events: none;
+}
+
+/* Virtualized messages have sibling row wrappers, not sibling bubbles.
+   Date separators break adjacency and start a new run. */
+.messages-list-scrolling-container :has(> .message-container.is-sender):has(+ * > .message-container.is-sender)
+  .message-contents.MessageContent-module__isSender::after {
+  content: none;
+}
+
+/* Keep the contact card, but remove the header band in the focused window. */
+body:not(.window-unfocused) .right-thread .right-pane-header {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Date labels should not draw an opaque chip over scrolling messages. */
+.right-thread .date div {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--im-muted) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Reply previews use their own opaque surface, separate from message bubbles. */
+.right-thread .LinkedMessage-module__linkedMessageContent,
+.right-thread .linked-message-content {
+  background: color-mix(in srgb, var(--im-text) 4%, transparent) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid color-mix(in srgb, var(--im-text) 12%, transparent) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  color: var(--im-muted) !important;
+}
+
+/* Follow the floating composer's actual height, including expanded drafts. */
+.right-thread .conversation {
+  anchor-scope: --im-composer;
+}
+
+.right-thread .conversation > .compose-message-container {
+  anchor-name: --im-composer;
+}
+
+.right-thread .ScrollToBottom-module__container {
+  position-anchor: --im-composer;
+  bottom: calc(anchor(top) + 6px) !important;
+  height: 28px;
+  pointer-events: none;
+}
+
+/* This icon is decorative; chat and account switchers are separate controls. */
+.compose-message-container .ComposerNetworkIcon-module__container {
+  display: none !important;
+}
+
+.ComposeMessage-module__textArea p.is-editor-empty:only-child::before {
+  color: var(--im-placeholder) !important;
+  font-weight: 500 !important;
+}
+
+.message-container:not(.type-action):not(.type-emoji):not(.is-ai) .message-text,
+.ComposeMessage-module__textArea .ProseMirror,
+.message-input-scroll textarea {
+  font-family: var(--font-family) !important;
+  font-size: var(--im-message-size) !important;
+  font-weight: var(--im-message-weight) !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.2px !important;
+}
+
+
+.compose-message-container .ComposerHiddenActions-module__toggle {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  padding: 6px;
+  border-radius: 50%;
+}
+
+.compose-message-container .ComposerHiddenActions-module__toggle svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  color: var(--im-muted);
+  opacity: 0.75;
+}
+
+/* Center the smaller action beside the input and use one source of spacing. */
+.ComposeMessage-module__leftButtons {
+  align-self: center !important;
+  height: 30px !important;
+  max-height: 30px !important;
+  margin-right: 0 !important;
+}
+
+.ComposeMessage-module__leftButtonControls {
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+}
+
+.ComposeMessage-module__row {
+  column-gap: 10px !important;
+  align-items: center !important;
+}
+
+/* The stock editor's nested minimum height made the single-line pill taller. */
+.ComposeMessage-module__input:not(.ComposeMessage-module__sendLater) {
+  box-sizing: border-box;
+  min-height: 38px;
+  border-radius: 19px !important;
+}
+
+.ComposeMessage-module__textArea {
+  padding: 4px 0 !important;
+}
+
+.ComposeMessage-module__wrapper .message-input-scroll > div:first-child > div:first-child > div,
+.ComposeMessage-module__wrapper .message-input-scroll textarea {
+  min-height: 28px !important;
+}
+
+.ComposeMessage-module__textArea .ProseMirror {
+  font-size: 17px !important;
+  line-height: 28px !important;
+  letter-spacing: -0.4px !important;
+}
+
+.ComposeMessage-module__textArea p.is-editor-empty:only-child::before {
+  font-weight: 600 !important;
+  color: #858589 !important;
+}
+
+.ComposeMessage-module__row > .compose-text,
+.ComposeMessage-module__row > .ComposeMessage-module__input {
+  align-self: center !important;
+  margin-block: 0 !important;
+}
+
+/* Anchor reactions to their bubble, not the full-width message row. */
+.message-container:has(.message-reactions) {
+  anchor-scope: --im-reacted-bubble;
+  padding-top: 24px;
+}
+
+/* The content wrapper exists for both text and photo-only messages. */
+.message-container:has(.message-reactions) .message-children main {
+  anchor-name: --im-reacted-bubble;
+}
+
+.message-container .message-reactions.bubble {
+  position: absolute;
+  position-anchor: --im-reacted-bubble;
+  top: calc(anchor(top) - 25px);
+  right: calc(anchor(right) - 10px);
+  left: auto;
+  margin: 0 !important;
+  gap: 4px;
+  z-index: 6;
+}
+
+.message-reactions.bubble > .message-reaction-container {
+  --im-reaction-fill: var(--im-bubble);
+  position: relative;
+  min-width: 28px;
+  min-height: 28px;
+  box-sizing: border-box;
+  justify-content: center;
+  padding: 5px;
+  background: var(--im-reaction-fill) !important;
+  border: 0 !important;
+  border-radius: 16px;
+  overflow: visible;
+}
+
+.message-reactions.bubble > .MessageReactions-module__isOwnReaction {
+  --im-reaction-fill: var(--color-primary);
+}
+
+.message-reactions.bubble > .MessageReactions-module__isOwnReaction::before {
+  background: transparent;
+}
+
+.message-reactions.bubble > .message-reaction-container::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  bottom: -3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--im-reaction-fill);
+  box-shadow: 4px 5px 0 -1px var(--im-reaction-fill);
+  pointer-events: none;
+}
+
+.message-reactions.bubble .message-reaction {
+  font-size: 16px !important;
+  line-height: 18px;
+}
+
+/* Keep search and new-chat keybinds; remove only their sidebar buttons. */
+.left button[aria-label="Search Chats"],
+.left button[aria-label="New Chat"],
+.left .tab-bar-btn:has(button[aria-label="Search Chats"]),
+.left .tab-bar-btn:has(button[aria-label="New Chat"]) {
+  display: none !important;
+}
+
+/* Restyle status metadata without changing delivery claims or edit actions. */
+.right-thread .MessageFooter-module__messageInfoLine {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 600 !important;
+  color: var(--im-muted);
+  margin-top: 3px;
+}
+
+.right-thread .MessageFooter-module__messageInfoLine .message-footer-text,
+.right-thread .MessageFooter-module__messageInfoLine .message-seen-by {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-weight: inherit !important;
+}
+
+.right-thread .MessageFooter-module__editHistoryButton,
+.right-thread .MessageFooter-module__editHistoryStaticLabel {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 600 !important;
+  color: var(--color-primary) !important;
+}
+
+.right-thread .MessageFooter-module__messageInfoSeparator {
+  font-size: 0;
+  margin-inline: 4px;
+}
+
+.right-thread .MessageFooter-module__messageInfoSeparator::before {
+  content: "•";
+  font-size: 14px;
+}
+
+/* Keep the empty sidebar quiet; retain filter and account controls. */
+.left .BrandEmptyStateMessage-module__emptyStateTitle,
+.left .BrandEmptyStateMessage-module__emptyStateFallback {
+  display: none !important;
+}
+
+/* Reactions sit on the edge facing the center of the conversation. */
+.message-container.is-sender .message-reactions.bubble {
+  left: calc(anchor(left) - 10px);
+  right: auto;
+}
+
+.message-container.is-sender .message-reactions.bubble > .message-reaction-container::after {
+  left: -1px;
+  right: auto;
+  box-shadow: -4px 5px 0 -1px var(--im-reaction-fill);
+}
+
+/* Beeper renders the timer's tooltip wrapper immediately after the contact
+   card. Keep it outside the centered avatar/name stack. */
+.right-thread .thread-header > .thread-header-left + * {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-app-region: no-drag;
+}
+
+body.window-unfocused .left {
+  background: var(--im-sidebar-inactive) !important;
+}
+
+.left .CurrentAccount-module__sidebarHeader {
+  display: none;
+}
+
+.left button[aria-label="Display Options"] {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--im-text) 12%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--im-text) 15%, transparent);
+  box-shadow: 0 1px 3px #00000020;
+}
+
+/* System history stays readable without competing with messages. */
+.right-thread .DisappearingTimerGrouper-module__message,
+.right-thread .TimelineNote-module__timelineNote {
+  color: color-mix(in srgb, var(--im-muted) 75%, var(--im-background)) !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+.right-thread .DisappearingTimerGrouper-module__message {
+  justify-content: center;
+}
+
+.right-thread .DisappearingTimerGrouper-module__message::before,
+.right-thread .DisappearingTimerGrouper-module__message::after,
+.right-thread .DisappearingTimerGrouper-module__settingsButton {
+  display: none !important;
+}
+
+.Toasts-module__container:not(.Toasts-module__error) {
+  background: color-mix(in srgb, var(--im-bubble) 85%, transparent) !important;
+  backdrop-filter: var(--im-control-filter);
+  -webkit-backdrop-filter: var(--im-control-filter);
+  border: 1px solid var(--im-control-border);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #00000020 !important;
+  color: var(--im-text);
+}
+
+.Toasts-module__container:not(.Toasts-module__error) .Toasts-module__close {
+  color: var(--im-muted);
+}
